@@ -7,16 +7,27 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req,res) => {
     try {
     const postData = await Post.findAll({
+        attributes: [
+            'id',
+            'title',
+            'content',
+            'user_post_id',
+            'posted_date',
+        ],
         include: [{
-            model: Post,
+            model: User,
+            attributes: [
+                'id',
+                'username',
+            ]
         }
     ],
     });
     const posts = postData.map((post) => post.get({ plain: true}));
-    
-    res.render('dashboard', { 
+    console.log(posts);
+    res.render('home-page', { 
         posts,
-        loggedIn : req.session.loggedIn,
+        // loggedIn : req.session.loggedIn,
     });
 
     } catch (err) {
@@ -50,3 +61,5 @@ router.get('/post/:id', withAuth, async (req, res) => {
     }
 
 });
+
+module.exports = router;
