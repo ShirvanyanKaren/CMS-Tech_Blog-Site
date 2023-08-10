@@ -34,6 +34,10 @@ Comment.init(
                 key: 'id'
             }
         },
+        comment_date: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW, 
+        },
 
   
     },

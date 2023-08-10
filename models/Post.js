@@ -27,8 +27,13 @@ Post.init(
             references: {
                 model: 'user',
                 key: 'id',
-            }
+            },
+            
 
+        },
+        posted_date: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW, 
         },
 
   
