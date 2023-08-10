@@ -19,26 +19,28 @@ User.init(
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
+            unique: true,
+            validate: {
+                isEmail: true,
+            }
         },
         password: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
+            validate: {
+                len: [6],
+            }
         },
 
     },
     {
-    sequelize
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'user',
     },
-)
+);
 
 
 
