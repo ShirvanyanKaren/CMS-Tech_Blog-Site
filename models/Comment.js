@@ -16,13 +16,12 @@ Comment.init(
             allowNull: false,
 
         },
-        user_comment_id: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
             references: {
                 model: 'user',
-                key: 'id',
+                key: 'id'
             }
 
         },
@@ -38,7 +37,6 @@ Comment.init(
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW, 
         },
-
   
     },
     {
