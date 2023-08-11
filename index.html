@@ -31,13 +31,13 @@
   </nav>
   <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="card border-primary mb-3" style="width: 150%;">
-        <div class="card-header bg-primary text-white text-center border-primary">Header</div>
+        <div class="card-header bg-primary text-white text border-primary"><h3>Title</h3>  <input type="text" class="form" value="Hello name"></div>
         <div class="card-body text-dark">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">Description</h5>
+            <p class="card-text"><input type="text" class="form-control" value="Some quick example text to build on the card title and make up the bulk of the card's content"></p>
         </div>
-        <div class="card-footer text-dark d-inline">
-            <p class="d-inline">Posted by Karen on Date</p>
+        <div class="card-footer text-dark d-flex justify-content-center">
+          <a href="/dashboard/edit/{{post.id}}"><button type="button" class="btn m-2 btn-primary">Edit Post</button></a>
         </div>
     </div>
 </div>

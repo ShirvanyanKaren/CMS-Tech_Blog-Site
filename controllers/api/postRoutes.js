@@ -31,12 +31,13 @@ router.get('/', async (req, res) => {
                 ],
                 include: {
                     model: User,
-                    attributes: ['username']
-                }
+                    attributes: ['username'],
+                },
             }
             ],
         });
-        res.json(userData);
+        res.json(postData);
+        console.log(postData);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -45,7 +46,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get ('/:id', withAuth, async (req, res) => {
+router.get ('/:id', async (req, res) => {
     try {
         const postData = await Post.findOne({
             attributes: [
@@ -90,9 +91,9 @@ router.get ('/:id', withAuth, async (req, res) => {
 
 });
 
-router.put ('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const postData = await Post.update({
+        const postData = await Post.update(req.body, {
             title: req.body.title,
             content: req.body.content,
             
@@ -105,6 +106,7 @@ router.put ('/:id', withAuth, async (req, res) => {
             return;
         }
         res.json(postData);
+        console.log(postData);
 
     } catch (err) {
         console.log(err);
@@ -115,7 +117,7 @@ router.put ('/:id', withAuth, async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const postData = await Post.update({
+        const postData = await Post.create({
             title: req.body.title,
             content: req.body.content,
             
@@ -132,7 +134,7 @@ router.post('/', async (req, res) => {
 });
 
 
-router.post('/:id', withAuth,(req, res) => {
+router.post('/:id',(req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();

@@ -1,4 +1,4 @@
-  <div class="container d-flex justify-content-center align-items-center mt-5">
+ <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="card border-primary mb-3" style="width: 150%;">
         <div class="card-header bg-primary  text-center border-primary">
             <a href="post/{{id}}"><p class="text-white">{{title}}</p></a>
@@ -6,8 +6,8 @@
         <div class="card-body text-dark">
             <p class="card-text">{{content}}</p>
         </div>
-        <div class="card-footer text-dark d-inline">
-            <p class="d-inline">Posted by {{user.username}} on {{format_date posted_date}}</p>
+        <div class="card-footer text-dark d-flex justify-content-center">
+          <a href="/dashboard/edit/{{post.id}}"><button type="button" class="btn btn-primary">Edit Post</button></a>
         </div>
     </div>
-</div>
+ </div>
