@@ -1,7 +1,90 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const withAuth = require('../../utils/auth')
 
-// CREATE new user
+
+
+
+router.get ('/', async (req, res) => {
+    try {
+        const userData = await User.findAll({
+            attributes:[{
+                exclude: ['password'],
+        }]
+        });
+        res.json(userData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+
+
+
+});
+
+
+
+router.get ('/:id', async (req, res) => {
+    try {
+        const userData = await User.findOne({
+            attributes:[{
+                exclude: ['password'],
+        }],
+            include: [{
+                model: Post,
+                attributes: [
+                    'id',
+                    'title',
+                    'content',
+                    'user_post_id',
+                    'posted_date',
+                ],
+            },
+            {
+                model: Comment,
+                attributes: [
+                    'id',
+                    'user_comment',
+                    'user_id',
+                    'post_id',
+                    'comment_date',
+                ],
+            }
+        ]
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user with that id'});
+            return;
+        }
+        res.json(userData);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+router.put ('/:id', async (req, res) => {
+    try {
+        const userData = await User.update(req.body, {
+            where: {
+                id: req.params.id,
+            },
+        });
+        if (!userData) {
+            res.status(404).json({ message: 'No user with that id'});
+            return;
+        }
+        res.json(userData);
+
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
+
 router.post('/', async (req, res) => {
   try {
     const dbUserData = await User.create({
@@ -21,7 +104,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Login
+
+
 router.post('/login', async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -59,7 +143,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Logout
+
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
