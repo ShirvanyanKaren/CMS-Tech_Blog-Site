@@ -23,7 +23,7 @@ async function newButtonHandler(event) {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard/edit/1');
+        document.location.replace('dashboard/edit/1');
     } else {
         alert('Failed to update post');
         console.log(title);

@@ -134,6 +134,8 @@ router.post('/', async (req, res) => {
 });
 
 
+
+
 router.post('/:id',(req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -143,5 +145,21 @@ router.post('/:id',(req, res) => {
     res.status(404).end();
   }
 });
+
+router.delete('/:id', async (req, res) => {
+    try {
+    const postData = await Post.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+      if (!postData) {
+        res.status(400).json({ message: 'No post with that id'})
+      }
+      res.status(200).json(postData);
+  } catch (err) {
+    res.status(500).json('Error in deleting post')
+  }
+  });
 
 module.exports = router;

@@ -1,10 +1,22 @@
 
 
 {{> post-details post}}
+<form class ="new-comment">
+<div class="container d-flex justify-content-center align-items-center mt-3">
+  <div class="card border-primary mb-3" style="width: 120%;">
+      <div class="card-body text-dark">
+        <input type="text" id="comment" class="comment form-control" value="add comment">
+      </div>
+      <div class="card-footer text-dark d-flex justify-content-center">
+              
+        <button type="submit" id="comment" class="edit-btn btn btn-primary m-2 ">Add Comment</button>
+    </div>
+  </div>
+  </div>
+</form>
+{{> comments post.comments}}
 
-
-
-{{> comments post.comment}}
+<script src="/js/addcomment.js"></script>
 
 
 
