@@ -11,11 +11,15 @@ const signupFormHandler = async (event) => {
         body: JSON.stringify({ username, email, password }),
         headers: { 'Content-Type': 'application/json' },
       });
+
       console.log(username);
       console.log(password);
       if (response.ok) {
         document.location.replace('/');
-      } else {
+      } else if(response.status === 400) {
+        alert('Email is taken already.')
+
+      } else  {
         alert('Failed to sign up.');
       }
     }

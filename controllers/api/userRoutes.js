@@ -92,6 +92,7 @@ router.post('/', async (req, res) => {
       
     });
     console.log(userData);
+    console.log(userData);
     req.session.save(() => {
     req.session.username = userData.username;
     req.session.user_id = userData.id;
@@ -100,8 +101,12 @@ router.post('/', async (req, res) => {
     });
     
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(400).json({ error: 'Username or email already exists' });
+    } else {
+      console.log(err);
+      res.status(500).json(err);
+    }
   }
 });
 
