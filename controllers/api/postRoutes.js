@@ -83,7 +83,9 @@ router.get ('/:id', async (req, res) => {
             }
             ],
         });
+        
         res.json(postData);
+        console.log(postData);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

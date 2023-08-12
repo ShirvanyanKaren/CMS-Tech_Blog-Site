@@ -14,9 +14,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    try { const commentData = await Comment.Create({
+    try { const commentData = await Comment.create({
         user_comment: req.body.user_comment,
-        user_id: req.body.user_id,
+        user_id: req.session.user_id,
+        post_id: req.body.post_id
     });
         res.json(commentData);
     } catch (err) {
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try { const commentData = await Comment.destroy({
         where: {
-            id: req.params.id
+            id: req.params.id,
         }
     });
         res.json(commentData);

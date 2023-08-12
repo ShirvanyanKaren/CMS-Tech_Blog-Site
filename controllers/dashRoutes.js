@@ -92,7 +92,7 @@ router.get('/edit/:id', async (req, res) => {
         console.log(post);
         res.render('edit-post', {
             post,
-            // loggedIn : req.session.loggedIn,
+            loggedIn : req.session.loggedIn,
         });
     } catch (err) {
         console.log(err);
@@ -103,49 +103,17 @@ router.get('/edit/:id', async (req, res) => {
 
 router.get('/create', async (req, res) => {
     try {
-        const postData = await Post.findAll({
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'user_post_id',
-                'posted_date',
-            ],
-            where: {
-                id: req.params.id
-              },
-            include: [{
-                model: User,
-                attributes: [
-                    'id',
-                    'username',
-                ]
-            },
-            {
-                model: Comment,
-                attributes:  [
-                    'id',
-                    'user_comment',
-                    'user_id',
-                    'post_id',
-                    'comment_date',
-                ],
-                include: {
-                    model: User,
-                    attributes: ['username']
-                }
-            }
-            ],
-        });
-        const post = await postData.get({ plain: true });
-        res.render('dashboard', {
-            post,
-            loggedIn : req.session.loggedIn,
-        });
+
+        res.render('create-post', {
+        loggedIn: true,
+        }
+        );
+
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
+   
 
 });
 
