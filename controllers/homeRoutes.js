@@ -101,7 +101,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
       res.redirect('/');
       return;
     }
@@ -111,7 +111,7 @@ router.get('/login', (req, res) => {
 
 
   router.get('/signup', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
         res.redirect('/');
         return;
   }

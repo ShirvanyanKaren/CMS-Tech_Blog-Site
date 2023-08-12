@@ -102,7 +102,7 @@ router.post('/', async (req, res) => {
     
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(400).json({ error: 'Username or email already exists' });
+      res.status(400).json({ error: 'Email already exists' });
     } else {
       console.log(err);
       res.status(500).json(err);
@@ -140,10 +140,7 @@ router.post('/login', async (req, res) => {
       req.session.username = userData.username;
       req.session.user_id = userData.id;
       req.session.loggedIn = true;
-
-      res
-        .status(200)
-        .json({ user: userData, message: 'You are now logged in!' });
+      res.status(200) .json({ user: userData, message: 'You are now logged in!' });
     });
  
   } catch (err) {
