@@ -158,6 +158,7 @@ router.post('/logout',  (req, res) => {
     });
   } else {
     res.status(404).end();
+    res.render('home-page');
   }
   console.log(req.session);
 });
