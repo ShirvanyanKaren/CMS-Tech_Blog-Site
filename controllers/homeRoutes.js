@@ -5,6 +5,7 @@ const withAuth = require('../utils/auth');
 
 
 router.get('/', async (req, res) => {
+    console.log(req.session.username);
     try {
         const postData = await Post.findAll({
             attributes: [
@@ -23,8 +24,9 @@ router.get('/', async (req, res) => {
             }
             ],
         });
+        console.log(req.session);
         const posts = postData.map((post) => post.get({ plain: true }));
-        console.log(posts);
+        // console.log(posts);
         res.render('home-page', {
             posts,
             loggedIn : req.session.loggedIn,
@@ -77,14 +79,14 @@ router.get('/post/:id', async (req, res) => {
         ]
         });
         const post = await postData.get({ plain: true });
-        console.log(post.user);
+        // console.log(post.user);
         // console.log("Comments:", postData.comments);
         // console.log("Comments:", postData.user);
 
-        postData.comments.forEach(comment => {
-            // console.log("Comment:", comment.user_comment);
-            console.log("User:", comment.username);
-        });
+        // postData.comments.forEach(comment => {
+        //     // console.log("Comment:", comment.user_comment);
+        //     console.log("User:", comment.username);
+        // });
 
         res.render('single-post', {
             post,
@@ -106,5 +108,15 @@ router.get('/login', (req, res) => {
   
     res.render('login');
   });
+
+
+  router.get('/signup', (req, res) => {
+  if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+  }
+  res.render('signup');
+
+});
 
 module.exports = router;

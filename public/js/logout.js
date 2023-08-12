@@ -5,11 +5,13 @@ const logout = async () => {
     });
   
     if (response.ok) {
+      console.log('logged out');
       document.location.replace('/');
+      alert('logged out');
     } else {
       alert('Failed to log out.');
     }
   };
   
   document
-    .querySelector('#logout').addEventListener('click', logout);
+    .querySelector('.logout-link').addEventListener('click', logout);

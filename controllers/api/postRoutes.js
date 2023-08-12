@@ -120,10 +120,7 @@ router.post('/', async (req, res) => {
         const postData = await Post.create({
             title: req.body.title,
             content: req.body.content,
-            
-            where: {
-                id: req.params.id,
-            },
+            user_post_id: req.body.user_post_id
         });
         res.json(postData);
 
@@ -132,7 +129,6 @@ router.post('/', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 
 

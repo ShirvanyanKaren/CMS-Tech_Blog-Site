@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
             where: {
-                user_post_id: req.session.user_post_id
+                user_post_id: req.session.user_id
             },
             attributes: [
                 'id',
@@ -38,7 +38,8 @@ router.get('/', async (req, res) => {
                 }
             }
             ],
-        });
+
+        }); console.log(postData);
         const posts = postData.map((post) => post.get({ plain: true }));
         res.render('dashboard', {
             posts,
@@ -48,7 +49,7 @@ router.get('/', async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     }
-
+    
 });
 
 
@@ -147,6 +148,10 @@ router.get('/create', async (req, res) => {
     }
 
 });
+
+
+
+
   
 
 module.exports = router;

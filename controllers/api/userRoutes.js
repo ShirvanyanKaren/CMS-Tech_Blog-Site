@@ -8,9 +8,9 @@ const withAuth = require('../../utils/auth')
 router.get ('/', async (req, res) => {
     try {
         const userData = await User.findAll({
-            attributes:[{
+            attributes: {
                 exclude: ['password'],
-        }]
+        }
         });
         res.json(userData);
     } catch (err) {
@@ -90,12 +90,13 @@ router.post('/', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-
+    console.log(userData);
     req.session.save(() => {
-      req.session.loggedIn = true;
 
-      res.status(200).json(userData);
+    req.session.loggedIn = true;
+
     });
+    res.status(200).json(userData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -111,7 +112,7 @@ router.post('/login', async (req, res) => {
         email: req.body.email,
       },
     });
-
+    console.log(userData);
     if (!userData) {
       res
         .status(400)
@@ -119,7 +120,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await userDataerData.checkPassword(req.body.password);
+    const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
@@ -127,14 +128,17 @@ router.post('/login', async (req, res) => {
         .json({ message: 'Incorrect email or password. Please try again!' });
       return;
     }
-
+    console.log(userData);
     req.session.save(() => {
+      req.session.username = userData.username;
+      req.session.user_id = userData.id;
       req.session.loggedIn = true;
 
       res
         .status(200)
-        .json({ user: userDataerData, message: 'You are now logged in!' });
+        .json({ user: userData, message: 'You are now logged in!' });
     });
+ 
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -142,14 +146,16 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post('/logout', withAuth,(req, res) => {
+router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
+      console.log('logged out');
     });
   } else {
     res.status(404).end();
   }
+  console.log(req.session);
 });
 
 module.exports = router;
