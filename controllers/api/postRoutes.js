@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get ('/:id', async (req, res) => {
+router.get ('/:id',  async (req, res) => {
     try {
         const postData = await Post.findOne({
             attributes: [
@@ -119,13 +119,15 @@ router.put('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        console.log(req);
         const postData = await Post.create({
             title: req.body.title,
             content: req.body.content,
-            user_post_id: req.body.user_post_id
+            user_post_id: req.session.user_id
+            
         });
         res.json(postData);
-
+        console.log(postData);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

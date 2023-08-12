@@ -19,7 +19,7 @@ const hbs = exphbs.create({ helpers });
 const sess = {
   secret: 'Secret User Blog',
   cookie: {
-    maxAge: 900000,
+    maxAge: 9000000,
   },
   resave: false,
   saveUninitialized: true,

@@ -1,19 +1,22 @@
 <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="card border-primary mb-3" style="width: 150%;">
-        <form class="edit-post">
+        <form class="new-post-form">
             <div class="card-header bg-primary text-white text border-primary">
+            
                 <h3>Title</h3>
             
-                <input type="text" class="form" name="title" value="{{post.title}}">
+                <input id="title" type="text" class="form" name="title">
             </div>
             <div class="card-body text-dark">
                 <h5 class="card-title">Description</h5>
-                <input type="text" name="content" class="form-control" value="{{post.content}}">
+                <input type="text" id="content" name="content" class="form-control" value="">
             </div>
             <div class="card-footer text-dark d-flex justify-content-center">
-                <button type="button"  id="delete-btn" class="delete-btn btn btn-danger m-2 ">Delete Post</button>                
-                <button type="submit" id="edit-btn" class="edit-btn btn btn-primary m-2 ">Edit Post</button>
+                <button type="button"  class=" btn btn-secondary m-2 "><a href="/dashboard" class="text-white text-decoration-none">Go back</a></button>                
+                <button type="submit" id="addpost" class="edit-btn btn btn-primary m-2 ">Create Post</button>
             </div>
         </form>
     </div>
 </div>
+
+<script src="/js/addpost.js"></script>

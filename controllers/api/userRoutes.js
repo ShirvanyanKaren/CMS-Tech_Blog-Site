@@ -62,7 +62,7 @@ router.get ('/:id',withAuth, async (req, res) => {
     }
 });
 
-router.put ('/:id', withAuth, async (req, res) => {
+router.put ('/:id', async (req, res) => {
     try {
         const userData = await User.update(req.body, {
             where: {
@@ -89,14 +89,16 @@ router.post('/', async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      
     });
     console.log(userData);
     req.session.save(() => {
-
+    req.session.username = userData.username;
+    req.session.user_id = userData.id;
     req.session.loggedIn = true;
-
-    });
     res.status(200).json(userData);
+    });
+    
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -146,7 +148,7 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post('/logout', (req, res) => {
+router.post('/logout',  (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
